@@ -4,16 +4,17 @@ input_data = File.read("input.txt").split("\n\n")
 example_entries = example_data.map { |entry| entry.split(/\s/) }
 input_entries = input_data.map { |entry| entry.split(/\s/) }
 
-def solve(entries)
-  required_fields = %w[byr iyr eyr hgt hcl ecl pid]
+def count_valid_passports(entries)
   passports = entries.map { |entry| parse_entry(entry)}
   valid_passports = 0
-  passports.each do |passport|
-    valid_passports += 1 if required_fields.all? { |field| passport.keys.include?(field) } 
-  end
+  passports.each { |passport| valid_passports += 1 if has_all_required_fields?(passport) }
   valid_passports
 end
 
+def has_all_required_fields?(passport)
+  required_fields = %w[byr iyr eyr hgt hcl ecl pid]
+  required_fields.all? { |field| passport.keys.include?(field) } 
+end
 
 def parse_entry(entry)
   passport = {}
@@ -25,6 +26,6 @@ def parse_entry(entry)
 end
 
 
-p solve(example_entries)
-p solve(input_entries)
+p count_valid_passports(example_entries)
+p count_valid_passports(input_entries)
 
