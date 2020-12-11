@@ -1,5 +1,3 @@
-require 'set'
-
 example_data = File.read('example.txt').split("\n\n")
 input_data = File.read('input.txt').split("\n\n")
 
@@ -9,7 +7,6 @@ end
 
 def count_group_answers(group)
   group.chars.uniq.size
-  # Set.new(group.chars).size
 end
 
 def count_all_groups(groups)
